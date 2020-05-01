@@ -54,11 +54,11 @@
 <p>Dari penjelasan diatas, ketika aplikasi diakses oleh user/client, Context akan membawa nilai yang berhubungan dengan siklus user request ke proses yang lain.</p>
 <h2 id="implementasi">Implementasi</h2>
 <p>Oke, langsung saja ke implementasinya, flow aplikasinya sebagai berikut.</p>
-<p>user request -&gt; middleware (pengecekan user login) -&gt; processes/ application API boundaries</p>
+<p><img src="/middleware.png" alt="image alt text"></p>
 <ul>
 <li>user request adalah request model yang dikirim oleh user/client</li>
 <li>middleware(s) merupakan layer yang bertugas untuk memproses request model sebelum ditangai oleh request handler/API boundaries yang lain.</li>
-<li>application API boundaries, merupakan proses yang terjadi di dalam aplikasi baik itu transport layer, domain (business logic) layer, dan bahkan database layer.</li>
+<li>API boundaries, merupakan proses yang terjadi di dalam aplikasi baik itu transport layer, domain (business logic) layer, dan database layer.</li>
 </ul>
 <h3 id="middleware-pengecekan-user-login">Middleware (pengecekan user login)</h3>
 <p>Berikut middleware yang kita perlukan untuk kasus ini.</p>
@@ -77,7 +77,7 @@
       }
       ctx := context.WithValue(req.Context(), &quot;logged-user-id&quot;, user.ID)
       h.ServeHTTP(w, req.WithContext(ctx))
-      })
+    })
   }
 }
 </code></pre><p>Di potongan kode diatas, ketika mengeksekusi fungsi userQuery.ResolveByCrendetial, selain melempar nilai credential key, kita juga melempar Context sebagai argumen pertama. Hal ini dilakukan agar userQuery dapat menggunakan nilai dalam Context untuk berbagai hal, misal untuk request cancellation.</p>
