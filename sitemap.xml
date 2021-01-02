@@ -3,51 +3,51 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://example.org/about-me/</loc>
+    <loc>https://raka.dev/about-me/</loc>
     <lastmod>2021-01-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/books/</loc>
+    <loc>https://raka.dev/books/</loc>
     <lastmod>2021-01-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/</loc>
+    <loc>https://raka.dev/</loc>
     <lastmod>2021-01-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/posts/dependency-injection-in-go/</loc>
+    <loc>https://raka.dev/posts/dependency-injection-in-go/</loc>
     <lastmod>2018-09-07T15:06:09+07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/posts/</loc>
+    <loc>https://raka.dev/posts/</loc>
     <lastmod>2018-09-07T15:06:09+07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/posts/carrying-request-scoped-values-between-process-in-go/</loc>
+    <loc>https://raka.dev/posts/carrying-request-scoped-values-between-process-in-go/</loc>
     <lastmod>2018-06-10T14:58:04+07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/posts/http-middleware-di-go/</loc>
+    <loc>https://raka.dev/posts/http-middleware-di-go/</loc>
     <lastmod>2018-06-10T14:28:00+07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/posts/dasar-dependency-injection/</loc>
+    <loc>https://raka.dev/posts/dasar-dependency-injection/</loc>
     <lastmod>2017-04-25T13:52:08+07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://raka.dev/categories/</loc>
   </url>
   
   <url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://raka.dev/tags/</loc>
   </url>
   
 </urlset>
