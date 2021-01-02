@@ -13,6 +13,17 @@
     
     
     <item>
+      <title>Deploying Go App on Minikube Using Local Docker Image</title>
+      <link>https://raka.dev/posts/deploying-go-app-on-minikube-using-local-docker-image/</link>
+      <pubDate>Sun, 08 Dec 2019 17:03:58 +0700</pubDate>
+      
+      <guid>https://raka.dev/posts/deploying-go-app-on-minikube-using-local-docker-image/</guid>
+      <description>In this post I will guide you how to running local Docker Image on Minikube, a Virtual Machine which runs a single-node Kubernetes cluster locally. To go thru this post, I expect you already have Docker, kubectl and Minikube installed in local environment.
+Before starting into main topic, we need to create a small Go application first, it’s just a server that is receiving HTTP requests.
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;log&amp;#34; &amp;#34;net/http&amp;#34; &amp;#34;github.</description>
+    </item>
+    
+    <item>
       <title>Dependency Injection in Go</title>
       <link>https://raka.dev/posts/dependency-injection-in-go/</link>
       <pubDate>Fri, 07 Sep 2018 15:06:09 +0700</pubDate>

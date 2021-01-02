@@ -18,12 +18,17 @@
   </url>
   
   <url>
-    <loc>https://raka.dev/posts/dependency-injection-in-go/</loc>
-    <lastmod>2018-09-07T15:06:09+07:00</lastmod>
+    <loc>https://raka.dev/posts/deploying-go-app-on-minikube-using-local-docker-image/</loc>
+    <lastmod>2019-12-08T17:03:58+07:00</lastmod>
   </url>
   
   <url>
     <loc>https://raka.dev/posts/</loc>
+    <lastmod>2019-12-08T17:03:58+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://raka.dev/posts/dependency-injection-in-go/</loc>
     <lastmod>2018-09-07T15:06:09+07:00</lastmod>
   </url>
   
