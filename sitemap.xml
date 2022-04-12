@@ -1,58 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://raka.dev/about-me/</loc>
     <lastmod>2021-01-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://raka.dev/books/</loc>
     <lastmod>2021-01-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://raka.dev/</loc>
     <lastmod>2021-01-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://raka.dev/posts/deploying-go-app-on-minikube-using-local-docker-image/</loc>
     <lastmod>2019-12-08T17:03:58+07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://raka.dev/posts/</loc>
     <lastmod>2019-12-08T17:03:58+07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://raka.dev/posts/dependency-injection-in-go/</loc>
     <lastmod>2018-09-07T15:06:09+07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://raka.dev/posts/carrying-request-scoped-values-between-process-in-go/</loc>
     <lastmod>2018-06-10T14:58:04+07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://raka.dev/posts/http-middleware-di-go/</loc>
     <lastmod>2018-06-10T14:28:00+07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://raka.dev/posts/dasar-dependency-injection/</loc>
     <lastmod>2017-04-25T13:52:08+07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://raka.dev/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://raka.dev/tags/</loc>
   </url>
-  
 </urlset>

@@ -16,7 +16,7 @@ Apa itu Dependency Injection (DI)? Sederhananya, Dependency Injection merupakan 
   <meta property="og:url" content="https://raka.dev/posts/dasar-dependency-injection/" />
   <meta property="og:type" content="article" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.68.3" />
+  <meta name="generator" content="Hugo 0.94.2" />
 
   <link rel="stylesheet" href="/css/style.css" media="all" />
   <link rel="stylesheet" href="/css/syntax.css" media="all" />
@@ -88,20 +88,20 @@ Manfaat Dependency Injection</p>
 <p>Apabila kita lihat kembali penjelasan tentang DI, kita bisa anggap UserDAO dan EmailService sebagai Service yang dibutuhkan oleh Client yaitu RegistrationService.</p>
 <h3 id="tanpa-dependency-injection">Tanpa Dependency Injection</h3>
 <p>Langkah selanjutnya, kita coba implementasi kasus diatas tanpa menggunakan teknik DI.</p>
-<pre><code>class RegistrationService { 
+<pre tabindex="0"><code>class RegistrationService { 
   private final Connection conn;
   private final UserDAO userDao;
   private final EmailService emailService;
   public RegistrationService() {
-    this.conn = new Connection(&quot;localhost&quot;, &quot;root&quot;, &quot;password&quot;);
+    this.conn = new Connection(&#34;localhost&#34;, &#34;root&#34;, &#34;password&#34;);
     this.userDao = new UserDAO(this.conn);
-    this.emailService = new EmailService(&quot;sender@gmail.com&quot;, &quot;password-rahasia&quot;);  }
+    this.emailService = new EmailService(&#34;sender@gmail.com&#34;, &#34;password-rahasia&#34;);  }
 }
 </code></pre><p>Pada implementasi diatas, ketika melakukan instansiasi objek RegistrationService, kita juga melakukan instansiasi objek UserDAO dan EmailService di dalam RegisrationService. Hal ini mengakibatkan RegistrationService perlu tahu apa yang dibutuhkan oleh UserDAO dan EmailService.</p>
 <p>Padahal seharusnya RegistrationService tidak perlu tahu tentang bagaimana UserDAO dan EmailService bekerja. Sehingga dimasa depan kita dapat mengubah implementasi EmailService dan UserDAO tanpa mengganggu RegistrationService. Dengan kata lain, kita bisa mengubah implementasi Service tanpa mengubah bagaimana Clientdi instansiasi.</p>
 <h3 id="dengan-dependency-injection">Dengan Dependency Injection</h3>
 <p>Oke, selanjutnya kita gunakan teknik DI.</p>
-<pre><code>interface UserDAO {
+<pre tabindex="0"><code>interface UserDAO {
   void store(User user);
   bool existsByEmail(String email);
 }
@@ -121,9 +121,9 @@ class RegistrationService {
 
 class Application {
   public function void main(String[] args) {
-    Connection conn = new Connection(&quot;localhost&quot;, &quot;root&quot;,&quot;&quot;);
+    Connection conn = new Connection(&#34;localhost&#34;, &#34;root&#34;,&#34;&#34;);
     UserDAO userDao = new MysqlUserDAO(conn);
-    EmailService emailService = new  GmailService(&quot;user@example.com&quot;,&quot;secretPassword&quot;);
+    EmailService emailService = new  GmailService(&#34;user@example.com&#34;,&#34;secretPassword&#34;);
     RegistrationService registrationService = new RegistrationService(userDao, emailService);  
   }
 }
@@ -144,7 +144,7 @@ class Application {
     <div class="disqus-comments">
       <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

@@ -14,7 +14,7 @@
   <meta property="og:url" content="https://raka.dev/posts/carrying-request-scoped-values-between-process-in-go/" />
   <meta property="og:type" content="article" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.68.3" />
+  <meta name="generator" content="Hugo 0.94.2" />
 
   <link rel="stylesheet" href="/css/style.css" media="all" />
   <link rel="stylesheet" href="/css/syntax.css" media="all" />
@@ -64,35 +64,35 @@
 </ul>
 <h3 id="middleware-pengecekan-user-login">Middleware (pengecekan user login)</h3>
 <p>Berikut middleware yang kita perlukan untuk kasus ini.</p>
-<pre><code>func withLoggedUser(userQuery UserQuery) func(http.Handler) http.Handler {
+<pre tabindex="0"><code>func withLoggedUser(userQuery UserQuery) func(http.Handler) http.Handler {
   return func(h http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-      credKey := req.Header.Get(&quot;credential-key&quot;)
-        if credKey == &quot;&quot; {
-          w.Write([]byte(&quot;ForbiddenAccess&quot;))
+      credKey := req.Header.Get(&#34;credential-key&#34;)
+        if credKey == &#34;&#34; {
+          w.Write([]byte(&#34;ForbiddenAccess&#34;))
           return
       }
       user, err := userQuery.ResolveUserByCredential(req.Context(), credKey)
       if err != nil {
-      	w.Write([]byte(&quot;InternalServerError&quot;))
+      	w.Write([]byte(&#34;InternalServerError&#34;))
       	return
       }
-      ctx := context.WithValue(req.Context(), &quot;logged-user-id&quot;, user.ID)
+      ctx := context.WithValue(req.Context(), &#34;logged-user-id&#34;, user.ID)
       h.ServeHTTP(w, req.WithContext(ctx))
     })
   }
 }
 </code></pre><p>Di potongan kode diatas, ketika mengeksekusi fungsi userQuery.ResolveByCrendetial, selain melempar nilai credential key, kita juga melempar Context sebagai argumen pertama. Hal ini dilakukan agar userQuery dapat menggunakan nilai dalam Context untuk berbagai hal, misal untuk request cancellation.</p>
 <h3 id="request-handler-application-api-boundaries">Request Handler/ application API boundaries</h3>
-<pre><code>userQuery := user.NewQuery()
+<pre tabindex="0"><code>userQuery := user.NewQuery()
 
 withLoggedUserMiddleware := withLoggedUser(userQuery)
 
 reqHandler := withLoggedUserMiddleware(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-  w.Write([]byte(fmt.Sprintf(&quot;Hello %s&quot;, req.Context().Value(&quot;logged-user-id&quot;))))
+  w.Write([]byte(fmt.Sprintf(&#34;Hello %s&#34;, req.Context().Value(&#34;logged-user-id&#34;))))
 }))
 
-http.Handle(&quot;/secured-endpoint&quot;, reqHandler)
+http.Handle(&#34;/secured-endpoint&#34;, reqHandler)
 </code></pre><h2 id="kesimpulan">Kesimpulan</h2>
 <p>Context sangat berguna untuk menangani berbagai kasus terkait request-scoped values. Dalam dokumentasi resmi-nya, Context juga bisa digunakan untuk menangani kasus request deadline serta request cancellation.</p>
 <p>Sekian artikel kali ini, apabila teman- teman ada pertanyaan, saran atau tips tentang penggunaan Context, bisa tulis di kolom komentar.</p>
@@ -111,7 +111,7 @@ http.Handle(&quot;/secured-endpoint&quot;, reqHandler)
     <div class="disqus-comments">
       <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

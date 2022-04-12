@@ -16,7 +16,7 @@ Middleware merupakan sebuah sebuah layer tambahan sebelum http request dikerjaka
   <meta property="og:url" content="https://raka.dev/posts/http-middleware-di-go/" />
   <meta property="og:type" content="article" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.68.3" />
+  <meta name="generator" content="Hugo 0.94.2" />
 
   <link rel="stylesheet" href="/css/style.css" media="all" />
   <link rel="stylesheet" href="/css/syntax.css" media="all" />
@@ -60,10 +60,10 @@ Middleware merupakan sebuah sebuah layer tambahan sebelum http request dikerjaka
 </ul>
 <h2 id="http-middleware-di-go">HTTP Middleware di Go</h2>
 <p>Sebelum membuat middleware, mari kita ingat kembali bagaimana implementasi request handler di Go.</p>
-<pre><code>reqHandler := func(w http.RequestWriter, req *http.Request) {
-    w.Write([]byte(&quot;Halo semua&quot;)
+<pre tabindex="0"><code>reqHandler := func(w http.RequestWriter, req *http.Request) {
+    w.Write([]byte(&#34;Halo semua&#34;)
 }
-http.HandleFunc(&quot;/hello&quot;, reqHandler)
+http.HandleFunc(&#34;/hello&#34;, reqHandler)
 </code></pre><p>Contoh diatas, kita membuat request handler untuk pola routing “/hello”, sehingga ketika routing “/hello” diakses, server akan mengembalikan pesan “Halo semua”.</p>
 <p>Selanjutnya mari kita implementasi http middleware untuk kasus yang paling sederhana, yaitu logging ketika web diakses oleh user. Cara paling sederhana untuk membuat middleware adalah sebagai berikut:</p>
 <ul>
@@ -71,53 +71,53 @@ http.HandleFunc(&quot;/hello&quot;, reqHandler)
 <li>Selanjutnya, daftarkan fungsi tersebut ke http server bersama pola routing yang sesuai.</li>
 </ul>
 <p>Contoh implementasinya, pertama kita buat middleware yang bertugas sebagai logging ketika web diakses.</p>
-<pre><code>func logging(nextHandler http.Handler) http.Handler {
+<pre tabindex="0"><code>func logging(nextHandler http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-        log.Printf(&quot;URL %s\n&quot;, req.URL.String())
+        log.Printf(&#34;URL %s\n&#34;, req.URL.String())
         nextHandler.ServeHTTP(w, req)
     })
 }
 </code></pre><p>Langkah kedua, kita bungkus request handler yang dibuat sebelumnya dengan logging middleware.</p>
-<pre><code>handlerWithMiddleware := logging(http.HandlerFunc(reqHandler)))
+<pre tabindex="0"><code>handlerWithMiddleware := logging(http.HandlerFunc(reqHandler)))
 </code></pre><p>Terakhir, kita daftarkan ke http server bersama pola routing-nya.</p>
-<pre><code>http.Handle(&quot;/hello&quot;, handlerWithMiddleware)
+<pre tabindex="0"><code>http.Handle(&#34;/hello&#34;, handlerWithMiddleware)
 </code></pre><p>Di potongan kode diatas, kita telah berhasil membungkus request handler dengan middleware sederhana, berikut full kode implementasinya.</p>
-<pre><code>package main
+<pre tabindex="0"><code>package main
 
 import (
-    &quot;log&quot;
-    &quot;net/http&quot;
+    &#34;log&#34;
+    &#34;net/http&#34;
 )
 
 func logging(nextHandler http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-        log.Printf(&quot;URL %s\n&quot;, req.URL.String())
+        log.Printf(&#34;URL %s\n&#34;, req.URL.String())
         nextHandler.ServeHTTP(w, req)
     })
 }
 
 func reqHandler(w http.ResponseWriter, req *http.Request) {
-    w.Write([]byte(&quot;Halo semua&quot;))
+    w.Write([]byte(&#34;Halo semua&#34;))
 }
 
 func main() {
-    http.Handle(&quot;/hello&quot;, logging(http.HandlerFunc(reqHandler)))    http.ListenAndServe(&quot;:8080&quot;, nil)
+    http.Handle(&#34;/hello&#34;, logging(http.HandlerFunc(reqHandler)))    http.ListenAndServe(&#34;:8080&#34;, nil)
 }
 </code></pre><h2 id="do-one-thing-well--be-compose-able">Do one thing well &amp; be compose-able</h2>
 <p>Sebelumnya, kita sudah sepakat bahwa middleware yang baik adalah middleware yang bersifat do one thing well dan be compose-able. Jadi selanjutnya, kita coba buktikan apakah middleware diatas mampu bersifat be compose-able atau tidak.</p>
 <p>Kasus kali ini, implementasi middleware yang bertugas untuk membuat request ID, lalu mengirimkannya ke request handler.</p>
-<pre><code>func withReqID(h http.Handler) http.Handler {
+<pre tabindex="0"><code>func withReqID(h http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
         reqID, _ := uuid.NewV4()
-        ctx := context.WithValue(req.Context(), &quot;X-Request-ID&quot;, reqID.String())
+        ctx := context.WithValue(req.Context(), &#34;X-Request-ID&#34;, reqID.String())
         h.ServeHTTP(w, req.WithContext(ctx))
     })
 }
 </code></pre><p>Selanjutnya kita gabungkan middleware diatas dengan logging middleware yang sudah dibuat sebelumnya.</p>
-<pre><code>chain := withReqID(logging(http.HandlerFunc(reqHandler)))
-http.Handle(&quot;/hello&quot;, chain)
+<pre tabindex="0"><code>chain := withReqID(logging(http.HandlerFunc(reqHandler)))
+http.Handle(&#34;/hello&#34;, chain)
 </code></pre><p>Di potongan kode diatas, terlihat kita sudah berhasil menggabungkan lebih dari satu middleware ke dalam satu rangkaian middleware yang siap didaftarkan ke http server. Terlihat juga pola rangkaian-nya sebagai berikut:</p>
-<pre><code>middleware1(middleware2(middleware3(http.HandlerFunc(reqHandler)
+<pre tabindex="0"><code>middleware1(middleware2(middleware3(http.HandlerFunc(reqHandler)
 </code></pre><p>Full kode implementasi-nya bisa lihat disini</p>
 <h2 id="kesimpulan">Kesimpulan</h2>
 <p>Dari penjelasan diatas, serta contoh implementasi yang telah kita lakukan. Kita bisa ambil kesimpulan bahwa implementasi middleware di Go sangat gampang, walau hanya dengan menggunakan standard library. Namun apabila kita butuh perkakas yang lebih ringkas, kita juga bisa menggunakan perkakas yang sudah tersedia bebas di github, semisal <a href="https://github.com/justinas/alice">https://github.com/justinas/alice</a>.</p>
@@ -137,7 +137,7 @@ http.Handle(&quot;/hello&quot;, chain)
     <div class="disqus-comments">
       <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

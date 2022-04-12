@@ -18,7 +18,7 @@ Goals Dengan menulis artikel ini, diharapkan bisa menjawab beberapa pertanyaan b
   <meta property="og:url" content="https://raka.dev/posts/dependency-injection-in-go/" />
   <meta property="og:type" content="article" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.68.3" />
+  <meta name="generator" content="Hugo 0.94.2" />
 
   <link rel="stylesheet" href="/css/style.css" media="all" />
   <link rel="stylesheet" href="/css/syntax.css" media="all" />
@@ -61,7 +61,7 @@ Goals Dengan menulis artikel ini, diharapkan bisa menjawab beberapa pertanyaan b
 </ul>
 <h2 id="case-study">Case Study</h2>
 <p>Kasus yang digunakan pada artikel ini adalah menambahkan daftar following pada jejaring sosial, seperti Instagram atau Twitter. Berikut struktur data model yang digunakan untuk menggambarkan masalah daftar following pada jejaring sosial.</p>
-<pre><code>type Following struct {
+<pre tabindex="0"><code>type Following struct {
     ID int
     Username string
     FullName string
@@ -71,53 +71,53 @@ func NewFollowing(username string, fullName string) Following {
 }
 </code></pre><h3 id="phase-1-put-everything-in-main">Phase 1, Put everything in main()</h3>
 <p>Solusi paling straightforward ketika membuat Go program, adalah menaruh semuanya di main function.</p>
-<pre><code>package main
+<pre tabindex="0"><code>package main
 
 import (
-    &quot;database/sql&quot;
-    &quot;fmt&quot;
-    &quot;log&quot;   _ &quot;github.com/go-sql-driver/mysql&quot;
+    &#34;database/sql&#34;
+    &#34;fmt&#34;
+    &#34;log&#34;   _ &#34;github.com/go-sql-driver/mysql&#34;
 )
 
 var (
-    mysqlHost     = &quot;localhost&quot;
-    mysqlUser     = &quot;root&quot;
-    mysqlPassword = &quot;root_pass&quot;
+    mysqlHost     = &#34;localhost&#34;
+    mysqlUser     = &#34;root&#34;
+    mysqlPassword = &#34;root_pass&#34;
 )
 
 func main() {
-    connString := fmt.Sprintf(&quot;%s:%s@tcp(%s:3306)/following?parseTime=true&quot;, mysqlUser, mysqlPassword, mysqlHost)
-    sqlDB, err := sql.Open(&quot;mysql&quot;, connString)
+    connString := fmt.Sprintf(&#34;%s:%s@tcp(%s:3306)/following?parseTime=true&#34;, mysqlUser, mysqlPassword, mysqlHost)
+    sqlDB, err := sql.Open(&#34;mysql&#34;, connString)
     if err != nil {
-        log.Fatalf(&quot;Error %v&quot;, err)
+        log.Fatalf(&#34;Error %v&#34;, err)
     }
     if err := sqlDB.Ping(); err != nil {
-        log.Fatalf(&quot;Error %v&quot;, err)
+        log.Fatalf(&#34;Error %v&#34;, err)
     }
-    stmt, err := sqlDB.Prepare(&quot;INSERT INTO following (username, full_name) VALUES (?, ?)&quot;)
+    stmt, err := sqlDB.Prepare(&#34;INSERT INTO following (username, full_name) VALUES (?, ?)&#34;)
     if err != nil {
-        log.Fatalf(&quot;Error %v&quot;, err)
+        log.Fatalf(&#34;Error %v&#34;, err)
     }
     defer stmt.Close()
-    _, err = stmt.Exec(&quot;root&quot;, &quot;I'm Root&quot;)
+    _, err = stmt.Exec(&#34;root&#34;, &#34;I&#39;m Root&#34;)
     if err != nil {
-        log.Fatalf(&quot;Error %v&quot;, err)
+        log.Fatalf(&#34;Error %v&#34;, err)
     }
-    log.Println(&quot;Done!&quot;)
+    log.Println(&#34;Done!&#34;)
 }
 </code></pre><h3 id="pase-2-put-specific-task-in-specific-function">Pase 2, Put specific task in specific function</h3>
 <p>Selanjutnya, kita bisa menaruh scope tertentu di specific function, semisal scope program yang bertugas untuk membuat koneksi database, mengambil spesifik data, menyimpan data di database dan lain sebagainya.</p>
-<pre><code>package main
+<pre tabindex="0"><code>package main
 
 import (
-    &quot;database/sql&quot;
-    &quot;fmt&quot;
-    &quot;log&quot;    _ &quot;github.com/go-sql-driver/mysql&quot;
+    &#34;database/sql&#34;
+    &#34;fmt&#34;
+    &#34;log&#34;    _ &#34;github.com/go-sql-driver/mysql&#34;
 )
 
 func newSql(mysqlHost, mysqlUser, mysqlPassword string) (*sql.DB, error) {
-    connString := fmt.Sprintf(&quot;%s:%s@tcp(%s:3306)/following&quot;, mysqlUser, mysqlPassword, mysqlHost)
-    sqlDB, err := sql.Open(&quot;mysql&quot;, connString)
+    connString := fmt.Sprintf(&#34;%s:%s@tcp(%s:3306)/following&#34;, mysqlUser, mysqlPassword, mysqlHost)
+    sqlDB, err := sql.Open(&#34;mysql&#34;, connString)
     if err != nil {
         return nil, err
     }
@@ -128,7 +128,7 @@ func newSql(mysqlHost, mysqlUser, mysqlPassword string) (*sql.DB, error) {
 }
 
 func storeNewEntry(sqlDB *sql.DB, entity Following) error {
-    stmt, err := sqlDB.Prepare(&quot;INSERT INTO following (username, full_name) VALUES (?, ?)&quot;)
+    stmt, err := sqlDB.Prepare(&#34;INSERT INTO following (username, full_name) VALUES (?, ?)&#34;)
     if err != nil {
         return err
     }
@@ -141,26 +141,26 @@ func storeNewEntry(sqlDB *sql.DB, entity Following) error {
 }
 
 func main() {
-    sqlDB, err := newSql(&quot;localhost&quot;, &quot;root&quot;, &quot;root-is-not-used&quot;)
+    sqlDB, err := newSql(&#34;localhost&#34;, &#34;root&#34;, &#34;root-is-not-used&#34;)
     if err != nil {
-        log.Fatalf(&quot;Error %v&quot;, err)
+        log.Fatalf(&#34;Error %v&#34;, err)
     }
-    newFollowing := NewFollowing(&quot;root&quot;, &quot;I'm Root!&quot;)
+    newFollowing := NewFollowing(&#34;root&#34;, &#34;I&#39;m Root!&#34;)
     if err := storeNewEntry(sqlDB, newFollowing); err != nil {
-        log.Fatalf(&quot;Error %v&quot;, err)
+        log.Fatalf(&#34;Error %v&#34;, err)
     }
-    log.Println(&quot;Done!&quot;)
+    log.Println(&#34;Done!&#34;)
 }
 </code></pre><p>Contoh diatas, saya membuat 2 fungsi baru, yaitu fungsi untuk menyimpan data di database dan fungsi untuk membuat koneksi database.</p>
 <h3 id="phase-3-use-dependency-injection">Phase 3, Use dependency injection</h3>
 <p>Contoh selanjutnya, ialah memisahkan scope tersebut sesuai concern masing-masing, semisal scope yang berhubungan dengan interaksi ke database saya taruh di FollowingRepository. Selanjutnya, hal yang berhubungan dengan business logic saya taruh di FollowingService.</p>
 <p>Nantinya <code>FollowingRepository</code> akan di-inject ke FollowingService. Sehingga FollowingService dapat menggunakan FollowingRepository apabila dibutuhkan proses yang berhubungan dengan database, semisal menyimpan dan mengambil data.</p>
-<pre><code>package main
+<pre tabindex="0"><code>package main
 
 import (
-    &quot;database/sql&quot;
-    &quot;fmt&quot;
-    &quot;log&quot;    _ &quot;github.com/go-sql-driver/mysql&quot;
+    &#34;database/sql&#34;
+    &#34;fmt&#34;
+    &#34;log&#34;    _ &#34;github.com/go-sql-driver/mysql&#34;
 )
 
 type Repository interface {
@@ -176,7 +176,7 @@ type MysqlRepository struct {
 }
 
 func (sql MysqlRepository) Store(following Following) error {
-    stmt, err := sql.sqlDB.Prepare(&quot;INSERT INTO following (username, full_name) VALUES (?, ?)&quot;)
+    stmt, err := sql.sqlDB.Prepare(&#34;INSERT INTO following (username, full_name) VALUES (?, ?)&#34;)
     if err != nil {
         return err
     }
@@ -188,8 +188,8 @@ func (sql MysqlRepository) Store(following Following) error {
 }
 
 func newSql(mysqlHost, mysqlUser, mysqlPassword string) (*sql.DB, error) {
-    connString := fmt.Sprintf(&quot;%s:%s@tcp(%s:3306)/following&quot;, mysqlUser, mysqlPassword, mysqlHost)
-    sqlDB, err := sql.Open(&quot;mysql&quot;, connString)
+    connString := fmt.Sprintf(&#34;%s:%s@tcp(%s:3306)/following&#34;, mysqlUser, mysqlPassword, mysqlHost)
+    sqlDB, err := sql.Open(&#34;mysql&#34;, connString)
     if err != nil {
         return nil, err
     }
@@ -216,29 +216,29 @@ func (service Service) Insert(username, fullName string) error {
 }
 
 var (
-    mysqlHost     = &quot;localhost&quot;
-    mysqlUser     = &quot;root&quot;
-    mysqlPassword = &quot;root_pass&quot;
+    mysqlHost     = &#34;localhost&#34;
+    mysqlUser     = &#34;root&#34;
+    mysqlPassword = &#34;root_pass&#34;
 )
 
 func main() {
     sqlDB, err := newSql(mysqlHost, mysqlUser, mysqlPassword)
     if err != nil {
-        log.Fatalf(&quot;Error %v&quot;, err)
+        log.Fatalf(&#34;Error %v&#34;, err)
     }
     mysqlRepository := NewMysqlRepository(sqlDB)
     followingService := NewService(mysqlRepository)
-    if err := followingService.Insert(&quot;root&quot;, &quot;I'm Root!&quot;); err != nil {
-        log.Fatalf(&quot;Error %v&quot;, err)
+    if err := followingService.Insert(&#34;root&#34;, &#34;I&#39;m Root!&#34;); err != nil {
+        log.Fatalf(&#34;Error %v&#34;, err)
     }
-    log.Println(&quot;Done!&quot;)
+    log.Println(&#34;Done!&#34;)
 }
 </code></pre><h2 id="unit-testing">Unit Testing</h2>
 <p>Salah satu keunggulan dependency injection ialah kita bisa membuat komponen yang mandiri dan testable. Berikut contoh bagaimana kita membuat mock repository yang akan digunakan oleh layer service.</p>
-<pre><code>package main_test
+<pre tabindex="0"><code>package main_test
 
 import (
-    &quot;testing&quot;    following &quot;github.com/rakateja/di-go/manual-di&quot;
+    &#34;testing&#34;    following &#34;github.com/rakateja/di-go/manual-di&#34;
 )
 
 type MockRepository struct{}func NewMockRepository() following.Repository {
@@ -252,8 +252,8 @@ func (mock MockRepository) Store(entity following.Following) error {
 func TestInsertFollowing(t *testing.T) {
     followingRepository := NewMockRepository()
     followingService := following.NewService(followingRepository)
-    if err := followingService.Insert(&quot;root&quot;, &quot;I'm Root&quot;); err != nil {
-        t.Errorf(&quot;Got %v, expect nil  when inserting new following&quot;, err.Error())
+    if err := followingService.Insert(&#34;root&#34;, &#34;I&#39;m Root&#34;); err != nil {
+        t.Errorf(&#34;Got %v, expect nil  when inserting new following&#34;, err.Error())
     }
 }
 </code></pre><h2 id="conclusion">Conclusion</h2>
@@ -276,7 +276,7 @@ func TestInsertFollowing(t *testing.T) {
     <div class="disqus-comments">
       <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
