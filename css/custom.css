@@ -126,6 +126,7 @@ blockquote blockquote blockquote blockquote {
 .highlight pre, .highlight code {
   background-color: inherit;
   padding: 0;
+  line-height: 1em;
 }
 
 /* Main contents */

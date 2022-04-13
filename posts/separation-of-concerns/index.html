@@ -91,39 +91,38 @@ Before going deep into detail of this principles, let&rsquo;s define what&rsquo;
 }
 </code></pre><p>As the persistence only responsible to storing &amp; retrieving data in data storage, the function signature also only express those responsibilities.</p>
 <h4 id="business-logic-layer-domain-objects">Business logic layer (domain objects)</h4>
-<pre tabindex="0"><code>
-type Order struct {
-	OrderID  int
-	Subtotal int
-	Total    int
-	Items    []OrderItem
+<pre tabindex="0"><code>type Order struct {
+	ID       int         `json:&#34;id&#34;`
+	Subtotal int         `json:&#34;subTotal&#34;`
+	Total    int         `json:&#34;total&#34;`
+	Items    []OrderItem `json:&#34;items&#34;`
 }
 
 type OrderItem struct {
-	ID        int
-	ProductID int
-	Price     int
-	Qty       int
+	ID        int `json:&#34;id&#34;`
+	ProductID int `json:&#34;productId&#34;`
+	Price     int `json:&#34;price&#34;`
+	Qty       int `json:&#34;qty&#34;`
 }
 
 func (o *Order) AddItem(productID int, price int) error {
 	m := make(map[int]OrderItem, 0)
 	for _, item := range o.Items {
 		m[item.ProductID] = item
-
 	}
+    // Update qty if the productID have been registered
 	exist, item := m[productID]
 	if exist {
 		item.Qty += 1
 		m[productID] = item
-
 	}
+    
+    // Calculate subtotal based on product price &amp; quantity
 	o.Items = make([]OrderItem, 0)
 	subTotal := 0
 	for _, item := range o.Items {
 		o.Items = append(o.Items, item)
-		subTotal += (item * item.Qty)
-
+		subTotal += (item.Price * item.Qty)
 	}
 	o.Total = subTotal
 	o.SubTotal = subTotal

@@ -26,7 +26,7 @@ Before going deep into detail of this principles, let&amp;rsquo;s define what&am
       <guid>https://raka.dev/posts/deploying-go-app-on-minikube-using-local-docker-image/</guid>
       <description>In this post I will guide you how to running local Docker Image on Minikube, a Virtual Machine which runs a single-node Kubernetes cluster locally. To go thru this post, I expect you already have Docker, kubectl and Minikube installed in local environment.
 Before starting into main topic, we need to create a small Go application first, it’s just a server that is receiving HTTP requests.
-package main import ( &amp;#34;fmt&amp;#34; &amp;#34;log&amp;#34; &amp;#34;net/http&amp;#34; &amp;#34;github.</description>
+package main  import ( 	&amp;#34;fmt&amp;#34; 	&amp;#34;log&amp;#34; 	&amp;#34;net/http&amp;#34;  	&amp;#34;github.</description>
     </item>
     
     <item>
