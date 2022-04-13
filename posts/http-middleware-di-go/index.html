@@ -34,6 +34,7 @@ Middleware merupakan sebuah sebuah layer tambahan sebelum http request dikerjaka
     <h1 class="site-title"><a href="/">Made Raka</a></h1>
     <ul class="site-navi-items">
       <li class="site-navi-item-books"><a href="/books/" title="Books">Books</a></li>
+      <li class="site-navi-item-newsletter"><a href="/about-me/" title="Newsletter">Newsletter</a></li>
       <li class="site-navi-item-about"><a href="/about-me/" title="About">About</a></li>
     </ul>
   </nav>
@@ -156,6 +157,30 @@ http.Handle(&#34;/hello&#34;, chain)
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </div>
+
+    
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7_dtp.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+      #mc_embed_signup{background:#fff; clear:left; font:15px Helvetica,Arial,sans-serif;  width:600px;}
+       
+    </style>
+    <div id="mc_embed_signup">
+      <form action="https://gmail.us14.list-manage.com/subscribe/post?u=2b9f7bf6cb9312c518bf1e287&amp;id=a6a290a692" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+          <div id="mc_embed_signup_scroll">
+            <span>
+              <label for="mce-EMAIL">Want a monthly digest of this blog?</label>
+            </span>
+            <span>
+              <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email address" style="padding: 1%;"/>
+            </span>
+            <span>
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button" />
+            </span>
+          </div>
+      </form>
+    </div>
+    <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+    
 
     <ul class="pager article-pager">
       <li class="pager-newer">
