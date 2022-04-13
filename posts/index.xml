@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright 2021 Made Raka</copyright>
-    <lastBuildDate>Sun, 08 Dec 2019 17:03:58 +0700</lastBuildDate><atom:link href="https://raka.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Apr 2022 05:12:00 +0700</lastBuildDate><atom:link href="https://raka.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Separation of Concerns through Layered Design</title>
+      <link>https://raka.dev/posts/separation-of-concerns/</link>
+      <pubDate>Wed, 13 Apr 2022 05:12:00 +0700</pubDate>
+      
+      <guid>https://raka.dev/posts/separation-of-concerns/</guid>
+      <description>Introduction One of the well-known practices in software engineering when building information rich applications is layering it into different layers based on its concerns. I have seen many folks recommending this practice in many discussions, i.e blogpost, twitter discussion, linkedin post, etc. In this post, I’ll try to rephrase it with more details.
+Before going deep into detail of this principles, let&amp;rsquo;s define what&amp;rsquo;s problem we&amp;rsquo;re going to solve with this principle.</description>
+    </item>
+    
     <item>
       <title>Deploying Go App on Minikube Using Local Docker Image</title>
       <link>https://raka.dev/posts/deploying-go-app-on-minikube-using-local-docker-image/</link>
@@ -16,7 +26,7 @@
       <guid>https://raka.dev/posts/deploying-go-app-on-minikube-using-local-docker-image/</guid>
       <description>In this post I will guide you how to running local Docker Image on Minikube, a Virtual Machine which runs a single-node Kubernetes cluster locally. To go thru this post, I expect you already have Docker, kubectl and Minikube installed in local environment.
 Before starting into main topic, we need to create a small Go application first, it’s just a server that is receiving HTTP requests.
-package main  import ( 	&amp;#34;fmt&amp;#34; 	&amp;#34;log&amp;#34; 	&amp;#34;net/http&amp;#34;  	&amp;#34;github.</description>
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;log&amp;#34; &amp;#34;net/http&amp;#34; &amp;#34;github.</description>
     </item>
     
     <item>
